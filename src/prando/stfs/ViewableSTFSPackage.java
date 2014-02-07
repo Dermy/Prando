@@ -31,7 +31,7 @@ public class ViewableSTFSPackage
             Path selectedDirectory)
     {
         this.pkg = pkg;
-        
+
         setFileSize(divisor);
         setLocation(selectedDirectory);
         setLicenses();
@@ -99,7 +99,7 @@ public class ViewableSTFSPackage
         String s;
         byte[][] temp = pkg.getLicenses();
 
-        for(int i=0; i < temp.length; i++)
+        for(int i = 0; i < temp.length; i++)
         {
             s = DatatypeConverter.printHexBinary(temp[i]);
             licenses += " " + String.format("%02d", i+1) + ": " +

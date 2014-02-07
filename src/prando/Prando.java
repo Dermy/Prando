@@ -16,15 +16,26 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import prando.gui.*;
-import prando.listeners.*;
-import prando.stfs.*;
-import prando.util.Utilities;
 import prando.Settings.ColorScheme;
+import prando.gui.CustomJTable;
+import prando.gui.FunctionPanel;
+import prando.gui.InfoPanel;
+import prando.gui.InputOutput;
+import prando.gui.MenuBar;
+import prando.gui.Table;
+import prando.listeners.GoButtonActionListener;
+import prando.listeners.OpenActionListener;
+import prando.listeners.PopupMenuListener;
+import prando.listeners.SaveThumbnailActionListener;
+import prando.listeners.SearchBarDocumentListener;
+import prando.listeners.TableListSelectionListener;
+import prando.stfs.STFSPackage;
+import prando.stfs.ViewableSTFSPackage;
+import prando.util.Utilities;
 
 public class Prando
 {
-    public static final double VERSION = 2.0;
+    public static final double VERSION = 2.1;
 
     private String arg;
 

@@ -75,13 +75,13 @@ public class Table
             }//if
         }//for
 
-        for(int i=0; i < columns.length; i++)
+        for(int i = 0; i < columns.length; i++)
         {
             customJTable.removeColumn(customJTable.getColumnModel().
                     getColumn(0));
         }//for
 
-        for(int i=0; i < columns.length; i++)
+        for(int i = 0; i < columns.length; i++)
         {
             if(columns[i] != null)
             {

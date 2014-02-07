@@ -17,7 +17,7 @@ public class CustomJFileChooser extends JFileChooser
         {
             Container cont = (Container) comp;
 
-            for(int i=0; i < cont.getComponentCount(); i++)
+            for(int i = 0; i < cont.getComponentCount(); i++)
             {
                 recursivelySetFonts(cont.getComponent(i), font);
             }//for

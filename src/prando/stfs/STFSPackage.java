@@ -180,7 +180,7 @@ public class STFSPackage
 
         int licenseOffset = 0x22C;
 
-        for(int i=0;i<licenses.length;i++)
+        for(int i = 0; i < licenses.length; i++)
         {
             Utilities.readHex(path.toString(), licenses[i], licenseOffset, 16);
             licenseOffset += 0x10;
@@ -206,7 +206,7 @@ public class STFSPackage
     {
         if(ContentType.Installer == contentType)
         {
-            if(path.getFileName().startsWith("TU"))
+            if(path.getFileName().toString().startsWith("TU_"))
             {
                 status = TitleUpdateStatus.OLDUPDATE;
             }//if
