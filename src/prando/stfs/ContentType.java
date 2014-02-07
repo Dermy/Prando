@@ -43,7 +43,7 @@ public enum ContentType
         byteRepresentation = b;
     }//constructor
 
-    public String getHexString(){ return hex; }
+    public String getHexString() { return hex; }
     public byte[] getByteRepresentation() { return byteRepresentation; }
 
     @Override
