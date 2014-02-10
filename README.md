@@ -30,7 +30,7 @@ Todo
 ----
 
 * Comment code.
-* Make Open New File/Directory button look like it is clickable (because it is)
+* Make Open New File/Directory button look like it is clickable (because it is).
 * Make file chooser headers stay extended and not shrink when you change to a different directory.
 * Make a way to sort filesizes in table by KB, MB, GB instead of bytes.
 * Improve search regex.
