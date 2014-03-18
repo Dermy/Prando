@@ -3,7 +3,6 @@ package prando.gui;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import prando.stfs.STFSPackage;
-import prando.stfs.ViewableSTFSPackage;
 
 public class CustomTableModel extends AbstractTableModel
 {

@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import prando.Prando;
 import prando.Settings.ColorScheme;
 import prando.stfs.STFSPackage;
-import prando.stfs.ViewableSTFSPackage;
 
 public class InfoPanel
 {

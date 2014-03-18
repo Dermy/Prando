@@ -23,6 +23,7 @@ import prando.gui.InfoPanel;
 import prando.gui.InputOutput;
 import prando.gui.MenuBar;
 import prando.gui.Table;
+import prando.gui.ViewableSTFSPackage;
 import prando.listeners.GoButtonActionListener;
 import prando.listeners.OpenActionListener;
 import prando.listeners.PopupMenuListener;
@@ -30,7 +31,6 @@ import prando.listeners.SaveThumbnailActionListener;
 import prando.listeners.SearchBarDocumentListener;
 import prando.listeners.TableListSelectionListener;
 import prando.stfs.STFSPackage;
-import prando.stfs.ViewableSTFSPackage;
 import prando.util.Utilities;
 
 public class Prando

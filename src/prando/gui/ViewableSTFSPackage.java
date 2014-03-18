@@ -1,4 +1,4 @@
-package prando.stfs;
+package prando.gui;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.xml.bind.DatatypeConverter;
+import prando.stfs.STFSPackage;
 
 public class ViewableSTFSPackage
 {

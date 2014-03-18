@@ -9,7 +9,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import prando.Prando;
 import prando.Settings.Column;
-import prando.stfs.ViewableSTFSPackage;
 
 public class Table
 {

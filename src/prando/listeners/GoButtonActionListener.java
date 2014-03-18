@@ -7,11 +7,11 @@ import javax.swing.Action;
 import javax.swing.JFileChooser;
 import prando.Prando;
 import prando.gui.CustomJFileChooser;
+import prando.gui.ViewableSTFSPackage;
 import prando.stfs.ModifySTFS;
 import prando.stfs.STFSPackage;
 import prando.stfs.STFSType;
 import prando.stfs.TitleUpdateStatus;
-import prando.stfs.ViewableSTFSPackage;
 import prando.util.Utilities;
 
 public class GoButtonActionListener implements ActionListener
