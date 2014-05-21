@@ -6,7 +6,7 @@ Overview
 
 Prando stands for Patch, Rename, and Organize. It is a tool for batch manipulating STFS packages (downloadable content, title updates, etc.). It supports CON, LIVE, and PIRS files. It runs on Windows, Mac, and Linux.
 
-**Java Runtime Environment 7 (1.7) is required for Prando to run.**
+**Java Runtime Environment 7 (1.7) or later is required for Prando to run.**
 
 Features
 --------
