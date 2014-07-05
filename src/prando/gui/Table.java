@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import prando.Prando;
 import prando.Settings.Column;
@@ -35,7 +34,7 @@ public class Table
         CustomJTable customJTable = new CustomJTable();
         CustomTableModel customTableModel = new CustomTableModel(
                 p.getPackageList());
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(
+        TableRowSorter<CustomTableModel> sorter = new TableRowSorter<>(
                 customTableModel);
         TableColumn[] columns = new TableColumn[customTableModel.
                 getColumnCount()];

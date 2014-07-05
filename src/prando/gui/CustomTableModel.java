@@ -6,18 +6,28 @@ import prando.stfs.STFSPackage;
 
 public class CustomTableModel extends AbstractTableModel
 {
+    private String[] columnNames;
     private ArrayList<ViewableSTFSPackage> packageList;
 
     public CustomTableModel(ArrayList<ViewableSTFSPackage> packageList)
     {
+        this.columnNames = new String[]{ "Display Name", "Title Name",
+            "Location", "Orig Filename", "Title ID", "Content ID", "Media ID",
+            "TU Number", "Content Type", "State", "File Size", "Type"};
         this.packageList = packageList;
     }//constructor
 
     @Override
-    public int getColumnCount() { return 12; }
+    public int getRowCount() { return packageList.size(); }
 
     @Override
-    public int getRowCount() { return packageList.size(); }
+    public int getColumnCount() { return columnNames.length; }
+
+    @Override
+    public String getColumnName(int columnIndex)
+    {
+        return columnNames[columnIndex];
+    }//getColumnName
 
     @Override
     public Class<?> getColumnClass(int columnIndex)
@@ -34,40 +44,6 @@ public class CustomTableModel extends AbstractTableModel
 
         return String.class;
     }//getColumnClass
-
-    @Override
-    public String getColumnName(int columnIndex)
-    {
-        switch(columnIndex)
-        {
-            case 0:
-                return "Display Name";
-            case 1:
-                return "Title Name";
-            case 2:
-                return "Location";
-            case 3:
-                return "Orig Filename";
-            case 4:
-                return "Title ID";
-            case 5:
-                return "Content ID";
-            case 6:
-                return "Media ID";
-            case 7:
-                return "TU Number";
-            case 8:
-                return "Content Type";
-            case 9:
-                return "State";
-            case 10:
-                return "File Size";
-            case 11:
-                return "Type";
-            default:
-                return null;
-        }//switch
-    }//getColumnName
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)

@@ -105,8 +105,8 @@ public class InputOutput
         {
             try
             {
-                Files.write(Paths.get(cjfc.getSelectedFile().toString()), data,
-                        StandardOpenOption.CREATE);
+                Files.write(Paths.get(cjfc.getSelectedFile().toString()), 
+                    data);
             }//try
 
             catch(IOException ex){}//catch

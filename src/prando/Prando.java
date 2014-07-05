@@ -216,8 +216,8 @@ public class Prando
 
         try
         {
-            UIManager.setLookAndFeel(""
-                    + "javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel(
+                    "javax.swing.plaf.nimbus.NimbusLookAndFeel");
         }//try
 
         catch(ClassNotFoundException | InstantiationException
