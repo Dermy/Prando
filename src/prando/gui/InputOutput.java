@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -105,8 +104,7 @@ public class InputOutput
         {
             try
             {
-                Files.write(Paths.get(cjfc.getSelectedFile().toString()), 
-                    data);
+                Files.write(Paths.get(cjfc.getSelectedFile().toString()), data);
             }//try
 
             catch(IOException ex){}//catch
