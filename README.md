@@ -26,13 +26,13 @@ Usage
 4. Tick the checkboxes of operations you would like to perform on the packages (Patch, Rename, and/or Organize).
 5. Press Go to perform the operations. If Organize has been selected, also choose a directory where you would like the newly organized files to be placed.
 
-Todo
-----
+Possible Future Enhancements
+----------------------------
 
-* Comment code.
+* Add ability to edit Display Name.
 * Make Open New File/Directory button look like it is clickable (because it is).
 * Make file chooser headers stay extended and not shrink when you change to a different directory.
-* Make a way to sort filesizes in table by KB, MB, GB instead of bytes.
+* Sort filesizes in table by KB, MB, GB instead of bytes.
 * Improve search regex.
 * Find out if there is a way to stop slowness when scrolling through the table using keyboard arrow keys. Refreshing all of the info fields quickly time will cause the program to lag after a short time.
 
