@@ -35,7 +35,7 @@ import prando.util.Utilities;
 
 public class Prando
 {
-    public static final String VERSION = "2.1.1";
+    public static final String VERSION = "2.0.3";
 
     private String arg;
 
@@ -155,7 +155,7 @@ public class Prando
         UIManager.put("nimbusBase", Color.DARK_GRAY);
         UIManager.put("nimbusBlueGrey", Color.DARK_GRAY);
         UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
-        UIManager.put("nimbusFocus", Color.GREEN);
+        UIManager.put("nimbusFocus", Color.WHITE);
         UIManager.put("text", Color.GREEN);
         UIManager.put("control", Color.DARK_GRAY);
         UIManager.put("List[Selected].textForeground", Color.WHITE);
@@ -169,7 +169,7 @@ public class Prando
         UIManager.put("nimbusBase", Color.BLACK);
         UIManager.put("nimbusBlueGrey", Color.BLACK);
         UIManager.put("nimbusSelectionBackground", Color.BLACK);
-        UIManager.put("nimbusFocus", Color.GREEN);
+        UIManager.put("nimbusFocus", Color.WHITE);
         UIManager.put("text", Color.GREEN);
         UIManager.put("control", Color.BLACK);
         UIManager.put("List[Selected].textForeground", Color.WHITE);
@@ -184,7 +184,7 @@ public class Prando
         UIManager.put("nimbusBase", Color.DARK_GRAY);
         UIManager.put("nimbusBlueGrey", Color.DARK_GRAY);
         UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
-        UIManager.put("nimbusFocus", Color.WHITE);
+        UIManager.put("nimbusFocus", Color.GREEN);
         UIManager.put("text", Color.WHITE);
         UIManager.put("nimbusSelectedText", Color.GREEN);
         UIManager.put("control", Color.DARK_GRAY);
@@ -199,7 +199,7 @@ public class Prando
         UIManager.put("nimbusBase", Color.BLACK);
         UIManager.put("nimbusBlueGrey", Color.BLACK);
         UIManager.put("nimbusSelectionBackground", Color.BLACK);
-        UIManager.put("nimbusFocus", Color.WHITE);
+        UIManager.put("nimbusFocus", Color.GREEN);
         UIManager.put("text", Color.WHITE);
         UIManager.put("nimbusSelectedText", Color.GREEN);
         UIManager.put("control", Color.BLACK);
