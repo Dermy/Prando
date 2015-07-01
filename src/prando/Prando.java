@@ -59,7 +59,8 @@ public class Prando
 
     public InputOutput getInputOutput() { return io; }
     public Settings getSettings() { return settings; }
-    public ArrayList<ViewableSTFSPackage> getPackageList() {return packageList;}
+    public ArrayList<ViewableSTFSPackage> getPackageList() {
+        return packageList; }
     public Path getSelectedDirectory() { return selectedDirectory; }
     public JFrame getJFrame() { return jframe; }
     public MenuBar getMenuBar() { return menuBar; }

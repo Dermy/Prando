@@ -69,7 +69,7 @@ public class ModifySTFS
             raf.seek(licenseOffset);
             raf.write(license);
 
-            for(int i=1; i < blankLicense.length; i++)
+            for(int i = 1; i < blankLicense.length; i++)
             {
                 raf.write(blankLicense);
             }//for
@@ -125,8 +125,8 @@ public class ModifySTFS
                 dirs = Paths.get(organizeDirectory + s + "Organized" + s +
                         "Cache");
 
-                destination = Paths.get(organizeDirectory + s + "Organized"
-                        + s + "Cache" + s + pkg.getPath().getFileName());
+                destination = Paths.get(organizeDirectory + s + "Organized" +
+                        s + "Cache" + s + pkg.getPath().getFileName());
             }//else
         }//if
 
@@ -137,8 +137,8 @@ public class ModifySTFS
                 dirs = Paths.get(organizeDirectory + s + pkg.getTitleID() + s +
                         pkg.getContentID());
 
-                destination = Paths.get(organizeDirectory + s + pkg.getTitleID()
-                        + s + pkg.getContentID() + s +
+                destination = Paths.get(organizeDirectory + s +
+                        pkg.getTitleID() + s + pkg.getContentID() + s +
                         pkg.getPath().getFileName());
             }//if
 

@@ -24,8 +24,10 @@ public class CustomJTable extends JTable
         return renderer.getTableCellRendererComponent(this, value,
                                                       isSelected, false,
                                                       row, column);
-        /*always return false for 4th parameter
-         (hasFocus) so highlight around cells
-         in table does not show*/
+        /*
+         * always return false for 4th parameter
+         * (hasFocus) so highlight around cells
+         * in table does not show
+         */
     }//prepareRenderer
 }//CustomJTable

@@ -44,7 +44,8 @@ public class Settings
     public EnumSet<ContentType> getWhitelist() { return Whitelist; }
     public byte[] getLicense() { return License; }
 
-    public enum ColorScheme {NONE, GRAYGREEN, BLACKGREEN, GRAYWHITE, BLACKWHITE}
+    public enum ColorScheme {
+        NONE, GRAYGREEN, BLACKGREEN, GRAYWHITE, BLACKWHITE }
 
     public enum Kilobyte
     {
@@ -65,9 +66,18 @@ public class Settings
 
     public enum Column
     {
-        Display_Name(1), Title_Name(0), Location(2), Orig_Filename(0),
-        Title_ID(0), Content_ID(0), Media_ID(0), TU_Number(4), Content_Type(0),
-        Status(3), File_Size(0), Type(0);
+        Display_Name(1),
+        Title_Name(0),
+        Location(2),
+        Orig_Filename(0),
+        Title_ID(0),
+        Content_ID(0),
+        Media_ID(0),
+        TU_Number(4),
+        Content_Type(0),
+        Status(3),
+        File_Size(0),
+        Type(0);
 
         private int position;
         private int defaultPosition;
@@ -233,7 +243,7 @@ public class Settings
 
             for(ColorScheme c : ColorScheme.values())
             {
-                if(color==c.ordinal())
+                if(color == c.ordinal())
                 {
                     Color_Scheme = c;
                     break;
@@ -255,7 +265,7 @@ public class Settings
 
             for(Kilobyte kb : Kilobyte.values())
             {
-                if(kilobyte==kb.getByteCount())
+                if(kilobyte == kb.getByteCount())
                 {
                     Kilobyte_Size = kb;
                     break;
@@ -406,7 +416,7 @@ public class Settings
 
             byte[] license = new byte[16];
 
-            for(int i = 0 ; i < license.length ; i++)
+            for(int i = 0; i < license.length; i++)
             {
                 license[i] = Byte.parseByte(scan.next());
             }//for

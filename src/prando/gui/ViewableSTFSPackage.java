@@ -17,8 +17,8 @@ public class ViewableSTFSPackage
     private String licenses;
     private ImageIcon contentThumbnail;
     private ImageIcon titleThumbnail;
-    public final static ImageIcon BLANKICON = new ImageIcon(new
-            BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
+    public final static ImageIcon BLANKICON = new ImageIcon(
+            new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
 
     public STFSPackage getBasePackage() { return pkg; }
 

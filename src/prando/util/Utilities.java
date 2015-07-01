@@ -32,7 +32,11 @@ public class Utilities
     public static void quit(Prando p, String details)
     {
         JLabel label = new JLabel(details);
-        try { label.setFont(p.getSettings().getFont()); }
+
+        try
+        {
+            label.setFont(p.getSettings().getFont());
+        }//try
 
         catch(NullPointerException ex)
         {
