@@ -44,7 +44,7 @@ public class Table
         customJTable.setFont(p.getSettings().getFont());
         customJTable.setFillsViewportHeight(true);
         customJTable.setPreferredScrollableViewportSize(
-                new Dimension(650, 160));
+                new Dimension(979, 415));
         customJTable.getTableHeader().setReorderingAllowed(false);
         customJTable.getTableHeader().setFocusable(false);
         customJTable.getTableHeader().setFont(p.getSettings().getFont());
@@ -55,7 +55,7 @@ public class Table
 
         if(customJTable.getColumnCount() > 0)
         {
-            customJTable.getColumnModel().getColumn(0).setPreferredWidth(395);
+            customJTable.getColumnModel().getColumn(0).setPreferredWidth(205);
         }//if
 
         return customJTable;
@@ -95,7 +95,8 @@ public class Table
 
         try
         {
-            customJTable.getColumn("TU Number").setCellRenderer(leftRenderer);
+            customJTable.getColumn("Update Number").setCellRenderer(
+                    leftRenderer);
         }//try
 
         catch(IllegalArgumentException ex){}//catch

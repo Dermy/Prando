@@ -13,7 +13,7 @@ public class ViewableSTFSPackage
 {
     private STFSPackage pkg;
     private String fileSize;
-    private String location;
+    private String fileLocation;
     private String licenses;
     private ImageIcon contentThumbnail;
     private ImageIcon titleThumbnail;
@@ -23,7 +23,7 @@ public class ViewableSTFSPackage
     public STFSPackage getBasePackage() { return pkg; }
 
     public String getFileSize() { return fileSize; }
-    public String getLocation() { return location; }
+    public String getFileLocation() { return fileLocation; }
     public String getLicenses() { return licenses; }
     public ImageIcon getContentThumbnail() { return contentThumbnail; }
     public ImageIcon getTitleThumbnail() { return titleThumbnail; }
@@ -34,7 +34,7 @@ public class ViewableSTFSPackage
         this.pkg = pkg;
 
         setFileSize(divisor);
-        setLocation(selectedDirectory);
+        setFileLocation(selectedDirectory);
         setLicenses();
         setContentThumbnail();
         setTitleThumbnail();
@@ -84,15 +84,15 @@ public class ViewableSTFSPackage
         }//if
     }//setFileSize
 
-    private void setLocation(Path selectedDirectory)
+    private void setFileLocation(Path selectedDirectory)
     {
         String path = pkg.toString();
         int directoryLength = selectedDirectory.toString().length();
         int nameLength = selectedDirectory.toFile().getName().length() + 1;
         int difference = directoryLength - nameLength;
         String remove = selectedDirectory.toString().substring(0, difference);
-        location = path.replace(remove, "");
-    }//setLocation
+        fileLocation = path.replace(remove, "");
+    }//setFileLocation
 
     private void setLicenses()
     {

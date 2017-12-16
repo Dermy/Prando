@@ -18,42 +18,6 @@ public class ModifySTFS
 
     private ModifySTFS(){}
 
-    public static void anonymizeCON(STFSPackage pkg)
-    {
-        if(!Files.exists(pkg.getPath()))
-        {
-            errors.add(pkg + " : Could not be found for anonymization.");
-        }//if
-
-        else
-        {
-            try(RandomAccessFile raf = new RandomAccessFile(pkg.toString(),
-                    "rw"))
-            {
-                int headerOffset = 0x04;
-                int consoleIDOffset = 0x36C;
-                int profileIDOffset = 0x371;
-                int deviceIDOffset = 0x3FD;
-                byte[] blankHeader = new byte[552];
-                byte[] blankConsoleID = new byte[5];
-                byte[] blankProfileID = new byte[8];
-                byte[] blankDeviceID = new byte[20];
-
-                raf.write(blankHeader, headerOffset, blankHeader.length);
-                raf.write(blankConsoleID, consoleIDOffset,
-                        blankConsoleID.length);
-                raf.write(blankProfileID, profileIDOffset,
-                        blankProfileID.length);
-                raf.write(blankDeviceID, deviceIDOffset, blankDeviceID.length);
-            }//try
-
-            catch(IOException ex)
-            {
-                errors.add(pkg + " : Could not be anonymized properly.");
-            }//catch
-        }//else
-    }//anonymizeCON
-
     public static void patch(STFSPackage pkg, byte[] license)
     {
         if(!Files.exists(pkg.getPath()))
@@ -85,7 +49,7 @@ public class ModifySTFS
     {
         Path source = pkg.getPath();
         Path destination = Paths.get(pkg.getPath().getParent() + s +
-                pkg.getOriginalFilename());
+                pkg.getProperFilename());
         Path renamed;
 
         try
@@ -103,8 +67,7 @@ public class ModifySTFS
         return new STFSPackage(renamed.toString());
     }//rename
 
-    public static void organize(STFSPackage pkg, String organizeDirectory,
-            boolean fullyOrganize)
+    public static void organize(STFSPackage pkg, String organizeDirectory)
     {
         Path dirs;
         Path source = pkg.getPath();
@@ -112,47 +75,20 @@ public class ModifySTFS
 
         if(pkg.getTitleUpdateStatus() == TitleUpdateStatus.OLDUPDATE)
         {
-            if(!fullyOrganize)
-            {
-                dirs = Paths.get(organizeDirectory + s + "Cache");
-
-                destination = Paths.get(organizeDirectory + s + "Cache" + s +
-                        pkg.getPath().getFileName());
-            }//if
-
-            else
-            {
-                dirs = Paths.get(organizeDirectory + s + "Organized" + s +
-                        "Cache");
-
-                destination = Paths.get(organizeDirectory + s + "Organized" +
-                        s + "Cache" + s + pkg.getPath().getFileName());
-            }//else
+            dirs = Paths.get(organizeDirectory + s + "Cache");
+            destination = Paths.get(organizeDirectory + s + "Cache" + s +
+                    pkg.getPath().getFileName());
         }//if
 
         else
         {
-            if(!fullyOrganize)
-            {
-                dirs = Paths.get(organizeDirectory + s + pkg.getTitleID() + s +
-                        pkg.getContentID());
-
-                destination = Paths.get(organizeDirectory + s +
-                        pkg.getTitleID() + s + pkg.getContentID() + s +
-                        pkg.getPath().getFileName());
-            }//if
-
-            else
-            {
-                dirs = Paths.get(organizeDirectory + s + "Organized" + s +
-                        "Content" + s + "0000000000000000" + s +
-                        pkg.getTitleID() + s + pkg.getContentID());
-
-                destination = Paths.get(organizeDirectory + s + "Organized" +
-                        s + "Content" + s + "0000000000000000" + s +
-                        pkg.getTitleID() + s + pkg.getContentID() + s +
-                        pkg.getPath().getFileName());
-            }//else
+            dirs = Paths.get(organizeDirectory + s +
+                    "Content" + s + "0000000000000000" + s +
+                    pkg.getTitleID() + s + pkg.getContentID());
+            destination = Paths.get(organizeDirectory + s +
+                    "Content" + s + "0000000000000000" + s +
+                    pkg.getTitleID() + s + pkg.getContentID() + s +
+                    pkg.getPath().getFileName());
         }//else
 
         try

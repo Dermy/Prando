@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import prando.Prando;
-import prando.Settings.ColorScheme;
 import prando.stfs.STFSPackage;
 
 public class InfoPanel
@@ -34,7 +33,7 @@ public class InfoPanel
         GridBagConstraints c = new GridBagConstraints();
         JPanel infoPanel = new JPanel(new GridBagLayout());
 
-        infoPanel.setPreferredSize(new Dimension(440, 250));
+        infoPanel.setPreferredSize(new Dimension(570, 250));
 
         initLicensesTextArea();
         initInfoFields();
@@ -85,7 +84,7 @@ public class InfoPanel
         c.gridx = 2;
         c.gridy = 5;
         c.gridheight = 1;
-        JLabel content = new JLabel(" Content Icon");
+        JLabel content = new JLabel("   Content Icon   ");
         content.setFont(p.getSettings().getFont());
         infoPanel.add(content, c);
         c.gridy = 6;
@@ -111,6 +110,13 @@ public class InfoPanel
         c.gridx = 1;
         c.insets.top = 0;
         jpanel.add(infoPanel, c);
+
+        JPanel functionPanel = p.getFunctionPanel().build();
+
+        c.gridx = 2;
+        c.insets.left = 1;
+        c.insets.right = 2;
+        jpanel.add(functionPanel, c);
 
         return jpanel;
     }//build
@@ -141,19 +147,8 @@ public class InfoPanel
         licensesTextArea.setFont(p.getSettings().getFont());
         licensesTextArea.setPreferredSize(new Dimension(325, 250));
 
-        if(p.getSettings().getColorScheme() == ColorScheme.GRAYGREEN ||
-                p.getSettings().getColorScheme() == ColorScheme.GRAYWHITE)
-        {
-            licensesTextArea.setBorder(BorderFactory.createLineBorder(
-                    Color.DARK_GRAY));
-        }//if
-
-        else if(p.getSettings().getColorScheme() == ColorScheme.BLACKGREEN ||
-                p.getSettings().getColorScheme() == ColorScheme.BLACKWHITE)
-        {
-            licensesTextArea.setBorder(BorderFactory.createLineBorder(
-                    Color.BLACK));
-        }//else if
+        licensesTextArea.setBorder(BorderFactory.createLineBorder(
+                Color.DARK_GRAY));
     }//initLicensesTextArea
 
     private void initInfoFields()
@@ -165,17 +160,17 @@ public class InfoPanel
         {
             if(i >= 0 && i <= 3)
             {
-                infoTextFields[i] = new JTextField(52);
+                infoTextFields[i] = new JTextField(68);
             }//if
 
             else if(i >= 4 && i <= 7)
             {
-                infoTextFields[i] = new JTextField(12);
+                infoTextFields[i] = new JTextField(16);
             }//else if
 
             else if(i >= 8 && i <= 11)
             {
-                infoTextFields[i] = new JTextField(26);
+                infoTextFields[i] = new JTextField(32);
             }//else if
 
             infoTextFields[i].setEditable(false);
@@ -186,33 +181,19 @@ public class InfoPanel
         thumbnailLabels[0] = new JLabel();
         thumbnailLabels[1] = new JLabel();
 
-        if(p.getSettings().getColorScheme() == ColorScheme.GRAYGREEN ||
-                p.getSettings().getColorScheme() == ColorScheme.BLACKGREEN)
-        {
-            thumbnailLabels[0].setBorder(BorderFactory.createLineBorder(
-                    Color.GREEN));
-            thumbnailLabels[1].setBorder(BorderFactory.createLineBorder(
-                    Color.GREEN));
-        }//if
-
-        else if(p.getSettings().getColorScheme() == ColorScheme.GRAYWHITE ||
-                p.getSettings().getColorScheme() == ColorScheme.BLACKWHITE ||
-                p.getSettings().getColorScheme() == ColorScheme.NONE)
-        {
-            thumbnailLabels[0].setBorder(BorderFactory.createLineBorder(
-                    Color.WHITE));
-            thumbnailLabels[1].setBorder(BorderFactory.createLineBorder(
-                    Color.WHITE));
-        }//else if
+        thumbnailLabels[0].setBorder(BorderFactory.createLineBorder(
+                Color.WHITE));
+        thumbnailLabels[1].setBorder(BorderFactory.createLineBorder(
+                Color.WHITE));
 
         infoTextFields[0].setText("Display Name");
         infoTextFields[1].setText("Title Name");
-        infoTextFields[2].setText("Location on Computer");
-        infoTextFields[3].setText("Original Filename");
+        infoTextFields[2].setText("File Location");
+        infoTextFields[3].setText("Proper Filename");
         infoTextFields[4].setText("Title ID");
         infoTextFields[5].setText("Content ID");
         infoTextFields[6].setText("Media ID");
-        infoTextFields[7].setText("TU Number");
+        infoTextFields[7].setText("Update Number");
         infoTextFields[8].setText("Content Type");
         infoTextFields[9].setText("State");
         infoTextFields[10].setText("File Size");
@@ -241,16 +222,16 @@ public class InfoPanel
         infoTextFields[0].setText(temp.getDisplayName());
         infoTextFields[1].setText(temp.getTitleName());
 
-        infoTextFields[2].setText(pkg.getLocation());
+        infoTextFields[2].setText(pkg.getFileLocation());
         infoTextFields[2].setCaretPosition(0);
 
-        infoTextFields[3].setText(temp.getOriginalFilename());
+        infoTextFields[3].setText(temp.getProperFilename());
         infoTextFields[4].setText(temp.getTitleID());
         infoTextFields[5].setText(temp.getContentID());
         infoTextFields[6].setText(temp.getMediaID());
         infoTextFields[7].setText("Update #" + temp.getUpdateNumber());
         infoTextFields[8].setText(temp.getContentType().toString());
-        infoTextFields[9].setText(temp.getState().toString());
+        infoTextFields[9].setText(temp.getSTFSState().toString());
         infoTextFields[10].setText(pkg.getFileSize());
         infoTextFields[11].setText(temp.getMagic().toString());
 

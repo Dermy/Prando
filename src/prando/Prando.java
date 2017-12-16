@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import prando.Settings.ColorScheme;
 import prando.gui.CustomJTable;
 import prando.gui.FunctionPanel;
 import prando.gui.InfoPanel;
@@ -24,18 +23,18 @@ import prando.gui.InputOutput;
 import prando.gui.MenuBar;
 import prando.gui.Table;
 import prando.gui.ViewableSTFSPackage;
-import prando.listeners.GoButtonActionListener;
 import prando.listeners.OpenActionListener;
 import prando.listeners.PopupMenuListener;
 import prando.listeners.SaveThumbnailActionListener;
 import prando.listeners.SearchBarDocumentListener;
+import prando.listeners.StartButtonActionListener;
 import prando.listeners.TableListSelectionListener;
 import prando.stfs.STFSPackage;
 import prando.util.Utilities;
 
 public class Prando
 {
-    public static final String VERSION = "2.0.3";
+    public static final String VERSION = "2.1.0";
 
     private String arg;
 
@@ -53,7 +52,6 @@ public class Prando
     private JFrame jframe;
     private JMenuBar jMenuBar;
     private CustomJTable customJTable;
-    private JPanel optionPanel;
     private JPanel topPanel;
     private JPanel bottomPanel;
 
@@ -117,7 +115,7 @@ public class Prando
 
         jframe.setLocationRelativeTo(null);
 
-        if(settings.getSelectFirstItem())
+        if(settings.getSelectFirstItemAfterLoad())
         {
             customJTable.requestFocus();
         }//if
@@ -132,89 +130,21 @@ public class Prando
 
     private void changeColorScheme()
     {
-        switch(settings.getColorScheme())
-        {
-            case NONE:
-                break;
-            case GRAYGREEN:
-                colorGrayAndGreen();
-                break;
-            case BLACKGREEN:
-                colorBlackAndGreen();
-                break;
-            case GRAYWHITE:
-                colorGrayAndWhite();
-                break;
-            case BLACKWHITE:
-                colorBlackAndWhite();
-                break;
-        }//switch
+        UIManager.put("nimbusBase", Color.DARK_GRAY);
+        UIManager.put("nimbusBlueGrey", Color.DARK_GRAY);
+        UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
+        UIManager.put("nimbusFocus", Color.GREEN);
+        UIManager.put("text", Color.WHITE);
+        UIManager.put("nimbusSelectedText", Color.GREEN);
+        UIManager.put("control", Color.DARK_GRAY);
+        UIManager.put("List[Selected].textForeground", Color.GREEN);
+        UIManager.put("nimbusLightBackground", Color.DARK_GRAY);
+        UIManager.put("Table.background", Color.DARK_GRAY);
+        UIManager.put("Table.alternateRowColor", Color.DARK_GRAY);
     }//changeColorScheme
-
-    private void colorGrayAndGreen()
-    {
-        UIManager.put("nimbusBase", Color.DARK_GRAY);
-        UIManager.put("nimbusBlueGrey", Color.DARK_GRAY);
-        UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
-        UIManager.put("nimbusFocus", Color.WHITE);
-        UIManager.put("text", Color.GREEN);
-        UIManager.put("control", Color.DARK_GRAY);
-        UIManager.put("List[Selected].textForeground", Color.WHITE);
-        UIManager.put("nimbusLightBackground", Color.DARK_GRAY);
-        UIManager.put("Table.background", Color.DARK_GRAY);
-        UIManager.put("Table.alternateRowColor", Color.DARK_GRAY);
-    }//colorGrayAndGreen
-
-    private void colorBlackAndGreen()
-    {
-        UIManager.put("nimbusBase", Color.BLACK);
-        UIManager.put("nimbusBlueGrey", Color.BLACK);
-        UIManager.put("nimbusSelectionBackground", Color.BLACK);
-        UIManager.put("nimbusFocus", Color.WHITE);
-        UIManager.put("text", Color.GREEN);
-        UIManager.put("control", Color.BLACK);
-        UIManager.put("List[Selected].textForeground", Color.WHITE);
-        UIManager.put("nimbusLightBackground", Color.BLACK);
-        UIManager.put("Table.background", Color.BLACK);
-        UIManager.put("Table.alternateRowColor", Color.BLACK);
-        UIManager.put("MenuItem[Enabled].textForeground", Color.GREEN);
-    }//colorBlackAndGreen
-
-    private void colorGrayAndWhite()
-    {
-        UIManager.put("nimbusBase", Color.DARK_GRAY);
-        UIManager.put("nimbusBlueGrey", Color.DARK_GRAY);
-        UIManager.put("nimbusSelectionBackground", Color.DARK_GRAY);
-        UIManager.put("nimbusFocus", Color.GREEN);
-        UIManager.put("text", Color.WHITE);
-        UIManager.put("nimbusSelectedText", Color.GREEN);
-        UIManager.put("control", Color.DARK_GRAY);
-        UIManager.put("List[Selected].textForeground", Color.GREEN);
-        UIManager.put("nimbusLightBackground", Color.DARK_GRAY);
-        UIManager.put("Table.background", Color.DARK_GRAY);
-        UIManager.put("Table.alternateRowColor", Color.DARK_GRAY);
-    }//colorGrayAndWhite
-
-    private void colorBlackAndWhite()
-    {
-        UIManager.put("nimbusBase", Color.BLACK);
-        UIManager.put("nimbusBlueGrey", Color.BLACK);
-        UIManager.put("nimbusSelectionBackground", Color.BLACK);
-        UIManager.put("nimbusFocus", Color.GREEN);
-        UIManager.put("text", Color.WHITE);
-        UIManager.put("nimbusSelectedText", Color.GREEN);
-        UIManager.put("control", Color.BLACK);
-        UIManager.put("List[Selected].textForeground", Color.GREEN);
-        UIManager.put("nimbusLightBackground", Color.BLACK);
-        UIManager.put("Table.background", Color.BLACK);
-        UIManager.put("Table.alternateRowColor", Color.BLACK);
-        UIManager.put("MenuItem[Enabled].textForeground", Color.WHITE);
-    }//colorBlackAndWhite
 
     private void changeLookAndFeel()
     {
-        ColorScheme cs = settings.getColorScheme();
-
         try
         {
             UIManager.setLookAndFeel(
@@ -228,37 +158,10 @@ public class Prando
             Utilities.quit(this, "Nimbus Look and Feel not found. Exiting.");
         }//catch
 
-        if(cs == ColorScheme.GRAYGREEN)
-        {
-            UIManager.getLookAndFeelDefaults().put("Table[Enabled+Selected]."
-                    + "textForeground", Color.WHITE);
-            UIManager.getLookAndFeelDefaults().put("ToolTip[Enabled]."
-                    + "backgroundPainter", Color.DARK_GRAY);
-        }//if
-
-        else if(cs == ColorScheme.BLACKGREEN)
-        {
-            UIManager.getLookAndFeelDefaults().put("Table[Enabled+Selected]."
-                    + "textForeground", Color.WHITE);
-            UIManager.getLookAndFeelDefaults().put("ToolTip[Enabled]."
-                    + "backgroundPainter", Color.BLACK);
-        }//else if
-
-        else if(cs == ColorScheme.GRAYWHITE)
-        {
-            UIManager.getLookAndFeelDefaults().put("Table[Enabled+Selected]."
-                    + "textForeground", Color.GREEN);
-            UIManager.getLookAndFeelDefaults().put("ToolTip[Enabled]."
-                    + "backgroundPainter", Color.DARK_GRAY);
-        }//else if
-
-        else if(cs == ColorScheme.BLACKWHITE)
-        {
-            UIManager.getLookAndFeelDefaults().put("Table[Enabled+Selected]."
-                    + "textForeground", Color.GREEN);
-            UIManager.getLookAndFeelDefaults().put("ToolTip[Enabled]."
-                    + "backgroundPainter", Color.BLACK);
-        }//else if
+        UIManager.getLookAndFeelDefaults().put("Table[Enabled+Selected]."
+                + "textForeground", Color.GREEN);
+        UIManager.getLookAndFeelDefaults().put("ToolTip[Enabled]."
+                + "backgroundPainter", Color.DARK_GRAY);
     }//changeLookAndFeel
 
     private void chooseDirectory()
@@ -277,7 +180,7 @@ public class Prando
 
         if(tempPackageList.isEmpty())
         {
-            Utilities.quit(this, "No CON, LIVE, or PIRS files were found."
+            Utilities.quit(this, "No LIVE or PIRS files were found."
                     + " Exiting.");
         }//if
 
@@ -309,7 +212,6 @@ public class Prando
         customJTable = table.build();
 
         functionPanel = new FunctionPanel(this);
-        optionPanel = functionPanel.build();
 
         buildTopPanel();
 
@@ -329,11 +231,6 @@ public class Prando
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         topPanel.add(scrollPane, c);
-
-        c.insets.left = 1;
-        c.insets.right = 2;
-        c.gridx = 1;
-        topPanel.add(optionPanel, c);
     }//buildTopPanel
 
     private void addListeners()
@@ -345,12 +242,12 @@ public class Prando
         customJTable.getSelectionModel().addListSelectionListener(
                 new TableListSelectionListener(this));
 
-        functionPanel.getGo().addActionListener(new GoButtonActionListener(
-                this));
+        functionPanel.getStart().addActionListener(
+                new StartButtonActionListener(this));
 
         makeAndAddThumbnailListeners(infoPanel.getThumbnailLabels());
 
-        if(settings.getSelectFirstItem())
+        if(settings.getSelectFirstItemAfterLoad())
         {
             customJTable.changeSelection(0, 0, false, false);
         }//if

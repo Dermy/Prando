@@ -14,12 +14,12 @@ public class FunctionPanel
     private JCheckBox patch;
     private JCheckBox rename;
     private JCheckBox organize;
-    private JButton go;
+    private JButton start;
 
     public JCheckBox getPatch() { return patch; }
     public JCheckBox getRename() { return rename; }
     public JCheckBox getOrganize() { return organize; }
-    public JButton getGo() { return go; }
+    public JButton getStart() { return start; }
 
     public FunctionPanel(Prando p) { this.p = p; }
 
@@ -31,17 +31,20 @@ public class FunctionPanel
         patch = new JCheckBox("Patch");
         rename = new JCheckBox("Rename");
         organize = new JCheckBox("Organize");
-        go = new JButton("Go");
+        start = new JButton("Start");
         patch.setFocusable(false);
         rename.setFocusable(false);
         organize.setFocusable(false);
-        go.setFocusable(false);
+        start.setFocusable(false);
         patch.setFont(p.getSettings().getFont());
         rename.setFont(p.getSettings().getFont());
         organize.setFont(p.getSettings().getFont());
-        go.setFont(p.getSettings().getFont());
+        start.setFont(p.getSettings().getFont());
 
-        go.setEnabled(!p.getSettings().getSafeMode());
+        patch.setEnabled(!p.getSettings().getEnableSafeMode());
+        rename.setEnabled(!p.getSettings().getEnableSafeMode());
+        organize.setEnabled(!p.getSettings().getEnableSafeMode());
+        start.setEnabled(!p.getSettings().getEnableSafeMode());
 
         c.anchor = GridBagConstraints.WEST;
         c.insets.top = 2;
@@ -60,7 +63,7 @@ public class FunctionPanel
         c.anchor = GridBagConstraints.CENTER;
         c.ipady = 89;
         c.gridy = 3;
-        jpanel.add(go, c);
+        jpanel.add(start, c);
 
         return jpanel;
     }//build

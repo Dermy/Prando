@@ -10,15 +10,14 @@ import prando.gui.CustomJFileChooser;
 import prando.gui.ViewableSTFSPackage;
 import prando.stfs.ModifySTFS;
 import prando.stfs.STFSPackage;
-import prando.stfs.STFSType;
 import prando.stfs.TitleUpdateStatus;
 import prando.util.Utilities;
 
-public class GoButtonActionListener implements ActionListener
+public class StartButtonActionListener implements ActionListener
 {
     private Prando p;
 
-    public GoButtonActionListener(Prando p)
+    public StartButtonActionListener(Prando p)
     {
         this.p = p;
     }//constructor
@@ -40,7 +39,8 @@ public class GoButtonActionListener implements ActionListener
             cjfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             cjfc.setDialogTitle("Organize File(s)");
             cjfc.setApproveButtonText("Choose");
-            cjfc.setApproveButtonToolTipText("Select an organize location");
+            cjfc.setApproveButtonToolTipText("Select a location to put your "
+                    + "organized files");
 
             option = cjfc.showOpenDialog(p.getJFrame());
 
@@ -61,12 +61,6 @@ public class GoButtonActionListener implements ActionListener
                         TitleUpdateStatus.NOTUPDATE))
                 {
                     ModifySTFS.patch(temp, p.getSettings().getLicense());
-
-                    if((temp.getMagic() == STFSType.CON) &&
-                            p.getSettings().getAnonymizeCON())
-                    {
-                        ModifySTFS.anonymizeCON(temp);
-                    }//if
                 }//if
 
                 if(p.getFunctionPanel().getRename().isSelected() &&
@@ -78,8 +72,7 @@ public class GoButtonActionListener implements ActionListener
 
                 if(organizeDirectory != null)
                 {
-                    ModifySTFS.organize(temp, organizeDirectory,
-                            p.getSettings().getFullyOrganize());
+                    ModifySTFS.organize(temp, organizeDirectory);
                 }//if
             }//for
 
@@ -91,4 +84,4 @@ public class GoButtonActionListener implements ActionListener
             }//if
         }//if
     }//actionPerformed
-}//GoButtonActionListener
+}//StartButtonActionListener

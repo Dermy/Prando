@@ -5,7 +5,6 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.Properties;
 import java.util.Scanner;
 import prando.stfs.ContentType;
@@ -16,36 +15,22 @@ public class Settings
     private Font font;
     private String Open_Path = System.getProperty("user.home");
     private String Organize_Path = System.getProperty("user.home");
-    private ColorScheme Color_Scheme = ColorScheme.GRAYGREEN;
     private Kilobyte Kilobyte_Size = Kilobyte.KB1024;
     private int Search_Depth = Integer.MAX_VALUE;
-    private boolean Anonymize_CON = true;
-    private boolean Fully_Organize = true;
-    private boolean Ignore_Whitelist = false;
-    private boolean Safe_Mode = false;
-    private boolean Select_First_Item = false;
-    private EnumSet<ContentType> Whitelist =
-            EnumSet.of(ContentType.Marketplace_Content, ContentType.Installer,
-            ContentType.Arcade_Title, ContentType.Theme);
+    private boolean Enable_Safe_Mode = false;
+    private boolean Select_First_Item_After_Load = false;
     private byte[] License = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, 0, 0, 0, 0};
 
     public Font getFont() { return font; }
     public String getOpenPath() { return Open_Path; }
     public String getOrganizePath() { return Organize_Path; }
-    public ColorScheme getColorScheme() { return Color_Scheme; }
     public Kilobyte getKilobyteSize() { return Kilobyte_Size; }
     public int getSearchDepth() { return Search_Depth; }
-    public boolean getAnonymizeCON() { return Anonymize_CON; }
-    public boolean getFullyOrganize() { return Fully_Organize; }
-    public boolean getIgnoreWhitelist() { return Ignore_Whitelist; }
-    public boolean getSafeMode() { return Safe_Mode; }
-    public boolean getSelectFirstItem() { return Select_First_Item; }
-    public EnumSet<ContentType> getWhitelist() { return Whitelist; }
+    public boolean getEnableSafeMode() { return Enable_Safe_Mode; }
+    public boolean getSelectFirstItemAfterLoad() {
+        return Select_First_Item_After_Load; }
     public byte[] getLicense() { return License; }
-
-    public enum ColorScheme {
-        NONE, GRAYGREEN, BLACKGREEN, GRAYWHITE, BLACKWHITE }
 
     public enum Kilobyte
     {
@@ -67,17 +52,17 @@ public class Settings
     public enum Column
     {
         Display_Name(1),
-        Title_Name(0),
-        Location(2),
-        Orig_Filename(0),
+        Title_Name(2),
+        File_Location(3),
+        Proper_Filename(0),
         Title_ID(0),
         Content_ID(0),
         Media_ID(0),
-        TU_Number(4),
+        Update_Number(0),
         Content_Type(0),
-        Status(3),
+        Status(0),
         File_Size(0),
-        Type(0);
+        STFS_Type(0);
 
         private int position;
         private int defaultPosition;
@@ -99,15 +84,10 @@ public class Settings
         readTableColumnPositionSettings();
         readOpenPathSetting();
         readOrganizePathSetting();
-        readColorSchemeSetting();
         readKilobyteSizeSetting();
         readSearchDepthSetting();
-        readAnonymizeCONSetting();
-        readFullyOrganizeSetting();
-        readIgnoreWhitelistSetting();
-        readSafeModeSetting();
-        readSelectFirstItemSetting();
-        readWhitelistSetting();
+        readEnableSafeModeSetting();
+        readSelectFirstItemAfterLoadSetting();
         readLicenseSetting();
     }//readAllSettings
 
@@ -129,7 +109,7 @@ public class Settings
     private void readTableColumnPositionSettings()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
@@ -209,65 +189,54 @@ public class Settings
     private void readOpenPathSetting()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
-            Open_Path = config.getProperty("Open_Path");
+            String openPath = config.getProperty("Open_Path");
+
+            if(openPath != null)
+            {
+                Open_Path = openPath;
+            }//if
         }//try
 
-        catch(IOException | NullPointerException ex){}//catch
+        catch(IOException ex){}//catch
     }//readOpenPathSetting
 
     private void readOrganizePathSetting()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
-            Organize_Path = config.getProperty("Organize_Path");
-        }//try
+            String organizePath = config.getProperty("Organize_Path");
 
-        catch(IOException | NullPointerException ex){}//catch
-    }//readOrganizePathSetting
-
-    private void readColorSchemeSetting()
-    {
-        try(InputStream is = Prando.class.getResourceAsStream(
-                "/settings/Settings.prando"))
-        {
-            Properties config = new Properties();
-            config.load(is);
-            int color = Integer.parseInt(config.getProperty("Color_Scheme"));
-
-            for(ColorScheme c : ColorScheme.values())
+            if(organizePath != null)
             {
-                if(color == c.ordinal())
-                {
-                    Color_Scheme = c;
-                    break;
-                }//if
-            }//for
+                Organize_Path = organizePath;
+            }//if
         }//try
 
-        catch(IOException | NullPointerException ex){}//catch
-    }//readColorSchemeSetting
+        catch(IOException ex){}//catch
+    }//readOrganizePathSetting
 
     private void readKilobyteSizeSetting()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
-            int kilobyte = Integer.parseInt(config.getProperty("Kilobyte"));
+            int kilobyteSize = Integer.parseInt(config.getProperty(
+                    "Kilobyte_Size"));
 
-            for(Kilobyte kb : Kilobyte.values())
+            for(Kilobyte kilobyte : Kilobyte.values())
             {
-                if(kilobyte == kb.getByteCount())
+                if(kilobyteSize == kilobyte.getByteCount())
                 {
-                    Kilobyte_Size = kb;
+                    Kilobyte_Size = kilobyte;
                     break;
                 }//if
             }//for
@@ -279,149 +248,73 @@ public class Settings
     private void readSearchDepthSetting()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
-            int temp = Integer.parseInt(config.getProperty("Search_Depth"));
+            int searchDepth = Integer.parseInt(config.getProperty(
+                    "Search_Depth"));
 
-            if(temp > 0)
+            if(searchDepth > 0)
             {
-                Search_Depth = temp;
+                Search_Depth = searchDepth;
             }//if
         }//try
 
         catch(IOException | NullPointerException | NumberFormatException ex){}
     }//readSearchDepthSetting
 
-    private void readAnonymizeCONSetting()
+    private void readEnableSafeModeSetting()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
-            String setting = config.getProperty("Anonymize_CON");
-
-            if(setting.toLowerCase().equals("false"))
-            {
-               Anonymize_CON = false;
-            }//if
+            Enable_Safe_Mode = Boolean.parseBoolean(config.getProperty(
+                    "Enable_Safe_Mode"));
         }//try
 
         catch(IOException | NullPointerException ex){}//catch
-    }//readAnonymizeCONSetting
+    }//readEnableSafeModeSetting
 
-    private void readFullyOrganizeSetting()
+    private void readSelectFirstItemAfterLoadSetting()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
-            Fully_Organize = Boolean.parseBoolean(config.getProperty(
-                    "Fully_Organize"));
-        }//try
-
-        catch(NullPointerException | IOException ex){}//catch
-    }//readFullyOrganizeSetting
-
-    private void readIgnoreWhitelistSetting()
-    {
-        try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
-        {
-            Properties config = new Properties();
-            config.load(is);
-            Ignore_Whitelist = Boolean.parseBoolean(config.getProperty(
-                    "Ignore_Whitelist"));
+            Select_First_Item_After_Load = Boolean.parseBoolean(
+                    config.getProperty("Select_First_Item_After_Load"));
         }//try
 
         catch(IOException | NullPointerException ex){}//catch
-    }//readIgnoreWhitelistSetting
-
-    private void readSafeModeSetting()
-    {
-        try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
-        {
-            Properties config = new Properties();
-            config.load(is);
-            Safe_Mode = Boolean.parseBoolean(config.getProperty("Safe_Mode"));
-        }//try
-
-        catch(IOException | NullPointerException ex){}//catch
-    }//readSafeModeSetting
-
-    private void readSelectFirstItemSetting()
-    {
-        try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
-        {
-            Properties config = new Properties();
-            config.load(is);
-            Select_First_Item = Boolean.parseBoolean(config.getProperty(
-                    "Select_First_Item"));
-        }//try
-
-        catch(IOException | NullPointerException ex){}//catch
-    }//readSelectFirstItemSetting
-
-    private void readWhitelistSetting()
-    {
-        if(!Ignore_Whitelist)
-        {
-            try(InputStream is = getClass().getResourceAsStream(
-                    "/settings/Settings.prando"))
-            {
-                Properties config = new Properties();
-                config.load(is);
-                String contentIDs = config.getProperty("Whitelist");
-                Scanner scan = new Scanner(contentIDs);
-                scan.useDelimiter(",");
-
-                EnumSet<ContentType> set = EnumSet.noneOf(ContentType.class);
-
-                while(scan.hasNext())
-                {
-                    String s = scan.next();
-
-                    for(ContentType ct : ContentType.values())
-                    {
-                        if(ct.getHexString().equals(s))
-                        {
-                            set.add(ct);
-                            break;
-                        }//if
-                    }//for
-                }//while
-
-                Whitelist = set;
-            }//try
-
-            catch(IOException | NullPointerException ex){}//catch
-        }//if
-    }//readWhitelistSetting
+    }//readSelectFirstItemAfterLoadSetting
 
     private void readLicenseSetting()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/settings/Settings.prando"))
+                "/settings/Settings.properties"))
         {
             Properties config = new Properties();
             config.load(is);
             String bytes = config.getProperty("License");
-            Scanner scan = new Scanner(bytes);
-            scan.useDelimiter(",");
 
-            byte[] license = new byte[16];
-
-            for(int i = 0; i < license.length; i++)
+            if(bytes != null)
             {
-                license[i] = Byte.parseByte(scan.next());
-            }//for
+                Scanner scan = new Scanner(bytes);
+                scan.useDelimiter(",");
 
-            License = license;
+                byte[] license = new byte[16];
+
+                for(int i = 0; i < license.length; i++)
+                {
+                    license[i] = Byte.parseByte(scan.next());
+                }//for
+
+                License = license;
+            }//if
         }//try
 
         catch(IOException | NullPointerException ex){}//catch
@@ -432,9 +325,9 @@ public class Settings
         byte[] b = new byte[4];
         Utilities.readHex(path, b, 0x344, 4);
 
-        for(ContentType ct : Whitelist)
+        for(ContentType contentType : ContentType.values())
         {
-            if(Arrays.equals(b, ct.getByteRepresentation()))
+            if(Arrays.equals(b, contentType.getByteRepresentation()))
             {
                 return true;
             }//if

@@ -63,15 +63,10 @@ public class InputOutput
                     if(attrs.isRegularFile() &&
                             STFSUtilities.isSTFS(path.toString()))
                     {
-                        if(p.getSettings().getIgnoreWhitelist())
+                        if(p.getSettings().isWhitelisted(path.toString()))
                         {
                             packageList.add(new STFSPackage(path.toString()));
                         }//if
-
-                        else if(p.getSettings().isWhitelisted(path.toString()))
-                        {
-                            packageList.add(new STFSPackage(path.toString()));
-                        }//else if
                     }//if
 
                     return FileVisitResult.CONTINUE;

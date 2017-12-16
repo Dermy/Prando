@@ -11,9 +11,10 @@ public class CustomTableModel extends AbstractTableModel
 
     public CustomTableModel(ArrayList<ViewableSTFSPackage> packageList)
     {
-        this.columnNames = new String[]{ "Display Name", "Title Name",
-            "Location", "Orig Filename", "Title ID", "Content ID", "Media ID",
-            "TU Number", "Content Type", "State", "File Size", "Type"};
+        this.columnNames = new String[]{"Display Name", "Title Name",
+            "File Location", "Proper Filename", "Title ID", "Content ID",
+            "Media ID", "Update Number", "Content Type", "STFS State",
+            "File Size", "STFS Type"};
         this.packageList = packageList;
     }//constructor
 
@@ -58,9 +59,9 @@ public class CustomTableModel extends AbstractTableModel
             case 1:
                 return pkg.getTitleName();
             case 2:
-                return vpkg.getLocation();
+                return vpkg.getFileLocation();
             case 3:
-                return pkg.getOriginalFilename();
+                return pkg.getProperFilename();
             case 4:
                 return pkg.getTitleID();
             case 5:
@@ -72,7 +73,7 @@ public class CustomTableModel extends AbstractTableModel
             case 8:
                 return pkg.getContentType().toString();
             case 9:
-                return pkg.getState().toString();
+                return pkg.getSTFSState().toString();
             case 10:
                 return pkg.getFileSize();
             case 11:

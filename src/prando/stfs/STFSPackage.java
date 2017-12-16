@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import javax.xml.bind.DatatypeConverter;
-import prando.util.STFSUtilities;
 import prando.util.Utilities;
 
 public class STFSPackage
@@ -16,10 +15,10 @@ public class STFSPackage
     private Path path;
     private STFSType magic;
     private ContentType contentType;
-    private TitleUpdateStatus status;
-    private STFSState state;
+    private TitleUpdateStatus titleUpdateStatus;
+    private STFSState stfsState;
     private byte[][] licenses;
-    private byte[] originalFilename;
+    private byte[] properFilename;
     private byte[] displayName;
     private byte[] titleName;
     private byte[] titleID;
@@ -38,11 +37,11 @@ public class STFSPackage
         readContentType();
         setTitleUpdateStatus();
 
-        originalFilename = new byte[21];
+        properFilename = new byte[21];
 
-        if(status == TitleUpdateStatus.NOTUPDATE)
+        if(titleUpdateStatus == TitleUpdateStatus.NOTUPDATE)
         {
-            readOriginalFilename();
+            readProperFilename();
         }//if
 
         readMediaID();
@@ -90,13 +89,13 @@ public class STFSPackage
 
     public TitleUpdateStatus getTitleUpdateStatus()
     {
-        return status;
+        return titleUpdateStatus;
     }//getTitleUpdateStatus
 
-    public String getOriginalFilename()
+    public String getProperFilename()
     {
-        return DatatypeConverter.printHexBinary(originalFilename);
-    }//getOriginalFilename
+        return DatatypeConverter.printHexBinary(properFilename);
+    }//getProperFilename
 
     public String getMediaID()
     {
@@ -149,10 +148,10 @@ public class STFSPackage
         return updateNumber;
     }//getUpdateNumber
 
-    public STFSState getState()
+    public STFSState getSTFSState()
     {
-        return state;
-    }//getState
+        return stfsState;
+    }//getSTFSState
 
     public long getFileSize()
     {
@@ -208,26 +207,26 @@ public class STFSPackage
         {
             if(path.getFileName().toString().startsWith("TU_"))
             {
-                status = TitleUpdateStatus.OLDUPDATE;
+                titleUpdateStatus = TitleUpdateStatus.OLDUPDATE;
             }//if
 
             else
             {
-                status = TitleUpdateStatus.NEWUPDATE;
+                titleUpdateStatus = TitleUpdateStatus.NEWUPDATE;
             }//else
         }//if
 
         else
         {
-            status = TitleUpdateStatus.NOTUPDATE;
+            titleUpdateStatus = TitleUpdateStatus.NOTUPDATE;
         }//else
     }//setTitleUpdateStatus
 
-    private void readOriginalFilename()
+    private void readProperFilename()
     {
-        Utilities.readHex(path.toString(), originalFilename, 0x32C, 20);
-        Utilities.readHex(path.toString(), originalFilename, 0x360, 1, 20);
-    }//readOriginalFilename
+        Utilities.readHex(path.toString(), properFilename, 0x32C, 20);
+        Utilities.readHex(path.toString(), properFilename, 0x360, 1, 20);
+    }//readProperFilename
 
     private void readMediaID()
     {
@@ -302,21 +301,11 @@ public class STFSPackage
 
     private void readSTFSState()
     {
-        switch(magic)
-        {
-            case CON:
-                state = STFSUtilities.isAnonymized(path) ?
-                        STFSState.Anonymized : STFSState.Unknown;
-                break;
-            case LIVE:
-            case PIRS:
-                byte[] b = new byte[6];
-                byte[] blank = new byte[6];
-                Utilities.readHex(path.toString(), b, 0x6, 6);
-                state = Arrays.equals(b,blank) ? STFSState.Broken_Header :
-                        STFSState.OK;
-                break;
-        }//switch
+        byte[] b = new byte[6];
+        byte[] blank = new byte[6];
+        Utilities.readHex(path.toString(), b, 0x6, 6);
+        stfsState = Arrays.equals(b, blank) ?
+                STFSState.Broken_Header : STFSState.OK;
     }//readSTFSState
 
     private void readFileSize()
