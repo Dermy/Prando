@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.1.1
+
+* Updated font file to latest version
+
 ### v2.1.0
 * Increased width and height of the main window
 * Set GUI colors to gray/white, removed extra color schemes

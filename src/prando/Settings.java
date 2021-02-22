@@ -94,7 +94,7 @@ public class Settings
     private void readFontFromResource()
     {
         try(InputStream is = getClass().getResourceAsStream(
-                "/resources/LiberationMono-Regular.ttf"))
+                "/resources/Font.ttf"))
         {
             font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
                     Font.PLAIN, 13);
